@@ -1,22 +1,40 @@
 import csv
 
 # Initialize an empty dictionary to store columns
-medicalRecords = []
+
+ages = []
+sexes = []
+bmis = []
+num_children = []
+smoker_statuses = []
+regions = []
+insurance_charges = []
 
 
 # Open the CSV file and read its contents into the list
-with open('insurance.csv', 'r') as file:
-    reader = csv.DictReader(file)
-    for row in reader:
-        # Append each row as a dictionary
-        medicalRecords.append(row)
+def csv_data(lst, csv_file, column_name):
+    # open csv file
+    with open(csv_file) as csv_info:
+        # read the data from the csv file
+        csv_dict = csv.DictReader(csv_info)
+        # loop through the data in each row of the csv 
+        for row in csv_dict:
+            # add the data from each row to a list
+            lst.append(row[column_name])
+
+    
+csv_data(ages, 'insurance.csv', 'age')
+csv_data(sexes, 'insurance.csv', 'sex')
+csv_data(bmis, 'insurance.csv', 'bmi')
+csv_data(num_children, 'insurance.csv', 'children')
+csv_data(smoker_statuses, 'insurance.csv', 'smoker')
+csv_data(regions, 'insurance.csv', 'region')
+csv_data(insurance_charges, 'insurance.csv', 'charges')
 
 
-# calculcating the average age.
-# converting the ages into INT
-total_age = sum(int(row['age']) for row in medicalRecords)
-average_age = total_age / len(medicalRecords) if medicalRecords else 0
+print(ages)
 
-print("Average age:", round(average_age))
-print(medicalRecords[0])
-
+oldestAge = max(ages)
+youngestAge = min(ages)
+averageAge = sum(ages)/len(ages)
+print('Average age: ', averageAge)
